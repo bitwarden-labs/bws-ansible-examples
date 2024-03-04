@@ -1,0 +1,32 @@
+---
+- name: Create ansible user and add to sudoers
+  hosts: datto_host
+  become: true
+  become_user: root
+
+  vars:
+    bws_access_token_datto: "{{ lookup('bitwarden.secrets.lookup', '1511d0a7-941f-4895-b4d5-b12900e770f4') }}"
+
+  tasks:
+    - name: Create ansible user
+      ansible.builtin.user:
+        name: ansible
+        state: present
+
+    - name: Add ansible to sudoers without password
+      ansible.builtin.lineinfile:
+        dest: /etc/sudoers
+        line: 'ansible ALL=(ALL) NOPASSWD: ALL'
+        validate: 'visudo -cf %s'
+      notify: Restart sudo
+
+    - name: Set BWS_ACCESS_TOKEN for remote
+      ansible.builtin.lineinfile:
+        dest: /home/ansible/.bashrc
+        line: 'export BWS_ACCESS_TOKEN={{ bws_access_token_datto }}'
+        insertafter: EOF
+        create: false
+        owner: ansible
+        group: ansible
+        mode: '0600'
+...
