@@ -1,0 +1,53 @@
+---
+- name: Install Vikunja
+  hosts: all
+
+  vars:
+    root_db_password: "{{ lookup('bitwarden.secrets.lookup', 'need_to_create_a_secret') }}"
+    vikunja_db_password: "{{ lookup('bitwarden.secrets.lookup', 'need_to_create_a_secret') }}"
+    smtp_host: " {{ lookup('bitwarden.secrets.lookup', 'need_to_create_another_secret') }}"
+    smtp_username: "{{ lookup('bitwarden.secrets.lookup', 'need_to_create_another_secret') }}"
+    smtp_password: "{{ lookup('bitwarden.secrets.lookup', 'need_to_create_another_secret') }}"
+    smtp_from_address: "{{ lookup('bitwarden.secrets.lookup', 'need_to_create_another_secret') }}"
+
+  tasks:
+    - name: Copy bootstrap files
+      ansible.builtin.copy:
+        src: ../vikunja
+        dest: (destination here)
+        owner: root
+        group: root
+        mode: "0700"
+
+    - name: Inject DB password into .env file
+      ansible.builtin.lineinfile:
+        path: (final path)
+        insertafter: "^database:$"
+        line: "  password: {{ vikunja_db_password }}"
+
+    - name: Inject SMTP details into .env file
+      ansible.builtin.lineinfile:
+        path: (final path)
+        insertafter: "^mailer:$"
+        lines:
+          - "  host: {{ smtp_host }}"
+          - "  username: {{ smtp_username }}"
+          - "  password: {{ smtp_password }}"
+          - "  fromemail: {{ smtp_from_address }}"
+        regexp: 'mailer:$'
+
+    - name: Inject MYSQL Root password into docker-compose.yml
+      ansible.builtin.lineinfile:
+        path: (final path)
+        insertafter: 'MYSQL_ROOT_PASSWORD:'
+        line: "      MYSQL_ROOT_PASSWORD: {{ root_db_password }}"
+        regexp: '^ *MYSQL_ROOT_PASSWORD:'
+
+    - name: Inject MYSQL Vikunja user password into docker-compose.yml
+      ansible.builtin.lineinfile:
+        path: (final path)
+        insertafter: 'MYSQL_USER:'
+        line: "      MYSQL_PASSWORD: {{ vikunja_db_password }}"
+        regexp: '^ *MYSQL_USER:'
+
+...
