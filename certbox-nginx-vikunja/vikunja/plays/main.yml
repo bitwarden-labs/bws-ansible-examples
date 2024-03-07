@@ -25,32 +25,51 @@
         insertafter: "^database:$"
         line: "  password: \"{{ vikunja_db_password }}\""
 
-    # # - name: Inject SMTP details into config.yml
-    # #   ansible.builtin.lineinfile:
-    # #     path: /opt/vikunja/config.yml
-    # #     insertafter: "^mailer:$"
-    # #     lines:
-    # #       - "  host: \"{{ smtp_host }}\""
-    # #       - "  username: \"{{ smtp_username }}\""
-    # #       - "  password: \"{{ smtp_password }}\""
-    # #       - "  fromemail: \"{{ smtp_from_address }}\""
+    # - name: TEST - Inject SMTP details into config.yml
+    #   ansible.builtin.lineinfile:
+    #     path: /opt/vikunja/config.yml
+    #     insertafter: "^mailer:$"
+    #     line: "{{ item.line }}"
+    #   loop:
+    #     - { line: "  host: \"{{ smtp_host }}\"" }
+    #     - { line: "  username: \"{{ smtp_username }}\"" }
+    #     - { line: "  password: \"{{ smtp_password }}\"" }
+    #     - { line: "  fromemail: \"{{ smtp_from_address }}\"" }
 
-    - name: TEST - Inject SMTP details into config.yml
+    # - name: Inject SMTP details into config.yml
+    #   ansible.builtin.blockinfile:
+    #     path: /opt/vikunja/config.yml
+    #     insertafter: "^mailer:$"
+    #     block: |
+    #       host: \"{{ smtp_host }}\"
+    #       username: \"{{ smtp_username }}\"
+    #       password: \"{{ smtp_password }}\"
+    #       fromemail: \"{{ smtp_from_address }}\"
+    #     marker: "# {mark} BITWARDEN SECRETS MANAGER MANAGED BLOCK"
+
+    - name: Inject SMTP details into config.yml \#1
       ansible.builtin.lineinfile:
         path: /opt/vikunja/config.yml
         insertafter: "^mailer:$"
-        line: "{{ item.line }}"
-      loop:
-        - { line: "  test1"}
-        - { line: "  test2"}
-        - { line: "  test3"}
-        - { line: "  test4"}
-        - { line: "  test5"}
+        line: "  host: \"{{ smtp_host }}\""
 
-        - { line: "  host: \"{{ smtp_host }}\"" }
-        - { line: "  username: \"{{ smtp_username }}\"" }
-        - { line: "  password: \"{{ smtp_password }}\"" }
-        - { line: "  fromemail: \"{{ smtp_from_address }}\"" }
+    - name: Inject SMTP details into config.yml \#2
+      ansible.builtin.lineinfile:
+        path: /opt/vikunja/config.yml
+        insertafter: "^mailer:$"
+        line: "  host: \"{{ smtp_username }}\""
+
+    - name: Inject SMTP details into config.yml \#3
+      ansible.builtin.lineinfile:
+        path: /opt/vikunja/config.yml
+        insertafter: "^mailer:$"
+        line: "  host: \"{{ smtp_password }}\""
+
+    - name: Inject SMTP details into config.yml \#4
+      ansible.builtin.lineinfile:
+        path: /opt/vikunja/config.yml
+        insertafter: "^mailer:$"
+        line: "  host: \"{{ smtp_from_address }}\""
 
     - name: Inject MYSQL Root password into docker-compose.yml
       ansible.builtin.lineinfile:
@@ -65,7 +84,5 @@
         line: "      MYSQL_PASSWORD: \"{{ vikunja_db_password }}\""
 
     - name: Run Vikunja
-      ansible.builtin.shell:
-
-
+      ansible.builtin.shell: "cd /opt/vikunja && docker compose down && docker compose up -d"
 ...
