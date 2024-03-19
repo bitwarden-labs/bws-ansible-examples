@@ -1,0 +1,6 @@
+---
+cloudflare_zone: "{{ lookup('bitwarden.secrets.lookup', '14fb543e-04ea-4094-93e7-b1380125bca7') }}"
+cloudflare_record: "{{ lookup('bitwarden.secrets.lookup', 'c10d95ee-83ab-42b3-b1fa-b1380125d93e') }}"
+cloudflare_email: "{{ lookup('bitwarden.secrets.lookup', 'b11dcc22-b924-490f-a154-b138012525ef') }}"
+cloudflare_token: "{{ lookup('bitwarden.secrets.lookup', 'c253227b-6b98-48c6-843a-b12900b875d5') }}"
+...
