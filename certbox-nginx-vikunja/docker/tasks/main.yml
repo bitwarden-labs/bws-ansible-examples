@@ -39,7 +39,7 @@
 - name: Change file ownership, group and permissions
   ansible.builtin.file:
     path: /usr/bin/docker-compose
-    owner: docker
+    owner: ansible
     group: docker
 
 - name: Copy daemon.json
@@ -49,7 +49,7 @@
     owner: root
     group: root
     mode: '0644'
-  notify: restart docker
+  notify: Restart docker
 
 - name: Ensure Docker is started and enabled at boot
   ansible.builtin.systemd:
