@@ -9,4 +9,4 @@ certbot certonly \
     --dns-cloudflare \
     --dns-cloudflare-credentials /root/certbot/cloudflare-credentials.ini \
     --dns-cloudflare-propagation-seconds 60 \
-    --domain 'ansibledemo.atjb.link'
+    --domain 'vikunja.atjb.link'

@@ -28,7 +28,7 @@ services:
       VIKUNJA_SERVICE_ROOTPATH: /app/vikunja/config.yml:ro
 
     ports:
-      - 80:3456
+      - 81:3456
     volumes:
       - ./files:/app/vikunja/files
       - ./config/config.yml:/app/vikunja/config.yml:ro

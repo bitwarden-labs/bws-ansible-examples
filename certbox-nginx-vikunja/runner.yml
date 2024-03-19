@@ -6,9 +6,9 @@
     - ./create-ansible-user/vars/create_ansible_user_vars.yml
     - ./vikunja/vars/vikunja_vars.yml
   roles:
-    - certbot
-    - create-ansible-user
-    - docker
-    # - nginx
-    - vikunja
+    # certbot
+    # - create-ansible-user
+    # - docker
+    - nginx
+    # - vikunja
 ...
