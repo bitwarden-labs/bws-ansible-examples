@@ -1,0 +1,10 @@
+---
+- name: Run subtasks
+  hosts: digitalocean_test
+  roles:
+    - certbot
+    - create-ansible-user
+    - docker
+    - nginx
+    - vikunja
+...
