@@ -3,12 +3,14 @@
   ansible.builtin.user:
     name: ansible
     state: present
+
 - name: Add ansible to sudoers without password
   ansible.builtin.lineinfile:
     dest: /etc/sudoers
     line: 'ansible ALL=(ALL) NOPASSWD: ALL'
     validate: 'visudo -cf %s'
   notify: Restart sudo
+
 - name: Set BWS_ACCESS_TOKEN for remote
   ansible.builtin.lineinfile:
     dest: /home/ansible/.bashrc
