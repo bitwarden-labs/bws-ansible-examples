@@ -1,13 +1,4 @@
 ---
-- name: Test secrets lookup
-  ansible.builtin.lineinfile:
-    dest: /home/ansible/testsecrets.txt
-    line: "{{ cloudflare_api_token }}"
-    create: true
-    owner: root
-    group: root
-    mode: '0600'
-
 - name: Install packages
   ansible.builtin.apt:
     update_cache: true
