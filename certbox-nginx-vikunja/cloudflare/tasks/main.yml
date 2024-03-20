@@ -1,5 +1,5 @@
 ---
-- name: Obtain public IPv4
+- name: Obtain server public IPv4
   ansible.builtin.uri:
     url: "https://api.ipify.org"
     return_content: yes
@@ -12,42 +12,25 @@
   debug:
     var: PUBLIC_IP
 
-# - name: Print bitwarden lookup values
-#   debug:
-#     var: "{{ cloudflare_zone }}"
-
-# - name: Print bitwarden lookup values
-#   debug:
-#     var: "{{ cloudflare_record }}"
-
-# - name: Print bitwarden lookup values
-#   debug:
-#     var: "{{ cloudflare_email }}"
-
-# - name: Print bitwarden lookup values
-#   debug:
-#     var: "{{ cloudflare_token }}"
-
-# - name: Set Cloudflare DNS A record
-#   community.general.cloudflare_dns:
-#     zone: "130336886d4ca2c308af1bcc99e1536e"
-#     record: "testtest"
-#     type: "A"
-#     value: "{{ PUBLIC_IP }}"
-#     account_email: "atjbramley@hotmail.com"
-#     account_api_key: "{{ cloudflare_token }}"
-#   register: record
-
-- name: Create a test.example.net A record to point to 127.0.0.1
+# https://docs.ansible.com/ansible/latest/collections/community/general/cloudflare_dns_module.html#community-general-cloudflare-dns-module-manage-cloudflare-dns-records
+- name: Create vikunja.atjb.link DNS record using serve public IPv4
   community.general.cloudflare_dns:
-    zone: atjb.link
-    record: testityyy
-    type: A
-    value: 127.0.0.1
+    zone: "atjb.link"
+    record: "vikunja"
+    type: "A"
+    value: "{{ PUBLIC_IP }}"
+    api_token: "{{ cloudflare_token }}"
     proxied: false
-    account_email: atjbramley@hotmail.com
-    account_api_token: "{{ cloudflare_token }}"
     state: present
+    solo: true
+    ttl: 900
   register: record
+
+# - name: Delete vikunja DNS record
+#   community.general.cloudflare_dns:
+#     zone: "atjb.link"
+#     record: "vikunja"
+#     api_token: "{{ cloudflare_token }}"
+#     state: absent
 
 ...
