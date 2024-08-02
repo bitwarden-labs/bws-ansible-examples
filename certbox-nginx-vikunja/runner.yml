@@ -1,6 +1,6 @@
 ---
 - name: Run subtasks
-  hosts: digitalocean_test
+  hosts: digitalocean_sm-demo
   vars_files:
     - ./certbot/vars/certbot_vars.yml
     - ./create-ansible-user/vars/create_ansible_user_vars.yml
@@ -8,9 +8,9 @@
     - ./cloudflare/vars/cloudflare_vars.yml
   roles:
     # certbot
-    # - create-ansible-user
-    # - docker
-    # - nginx
-    # - vikunja
-    - cloudflare
+    # create-ansible-user
+    # docker
+    # nginx
+    - vikunja
+    # cloudflare
 ...
