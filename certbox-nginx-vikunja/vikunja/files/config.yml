@@ -22,7 +22,6 @@ database:
   type: "mysql"
   database: "vikunja-db"
   user: "vikunja"
-  password: "changeme"
 
 cache:
   enabled: false

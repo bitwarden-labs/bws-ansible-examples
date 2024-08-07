@@ -15,9 +15,9 @@
     group: root
     mode: "0777"
   loop:
-    - { 
-        src: "../files/config.yml", 
-        dest: "/opt/vikunja/config/config.yml" 
+    - {
+        src: "../files/config.yml",
+        dest: "/opt/vikunja/config/config.yml"
       }
     - {
         src: "../files/docker-compose.yml",
