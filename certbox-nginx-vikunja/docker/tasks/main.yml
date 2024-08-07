@@ -1,5 +1,17 @@
 ---
-- name: Install apt-transport-https
+- name: Uninstall old Docker versions
+  ansible.builtin.apt:
+    name:
+      - docker.io
+      - docker-doc
+      - docker-compose
+      - podman-docker
+      - containerd
+      - runc
+    state: absent
+  become: true
+
+- name: Install required system packages
   ansible.builtin.apt:
     name:
       - apt-transport-https
@@ -8,25 +20,33 @@
       - gnupg
     state: latest
     update_cache: true
+  become: true
 
-- name: Add Docker signing key
+- name: Add Docker GPG apt key
   ansible.builtin.apt_key:
     url: "https://download.docker.com/linux/{{ ansible_distribution | lower }}/gpg"
     state: present
+  become: true
 
 - name: Add repository to sources list
   ansible.builtin.apt_repository:
-    repo: "deb [arch={{ ansible_architecture }}] https://download.docker.com/linux/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} stable"
+    repo: "deb https://download.docker.com/linux/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} stable"
     state: present
-    filename: docker
+
+- name: Update apt and install docker-ce
+  ansible.builtin.apt:
+    name: docker-ce
+    state: latest
+    update_cache: true
 
 - name: Install Docker
   ansible.builtin.apt:
     name:
-      - docker
-      - docker.io
-      - docker-compose
-      - docker-registry
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-buildx-plugin
+      - docker-compose-plugin
     state: latest
     update_cache: true
 
@@ -35,12 +55,7 @@
     name: ansible
     groups: docker
     append: true
-
-- name: Change file ownership, group and permissions
-  ansible.builtin.file:
-    path: /usr/bin/docker-compose
-    owner: ansible
-    group: docker
+  become: true
 
 - name: Copy daemon.json
   ansible.builtin.copy:
@@ -50,6 +65,7 @@
     group: root
     mode: '0644'
   notify: Restart docker
+  become: true
 
 - name: Ensure Docker is started and enabled at boot
   ansible.builtin.systemd:
