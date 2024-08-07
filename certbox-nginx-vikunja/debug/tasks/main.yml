@@ -1,0 +1,17 @@
+---
+- name: Gather all facts
+  ansible.builtin.setup:
+
+- name: Print ansible_distribution var
+  ansible.builtin.debug:
+    msg: "ansible_distribution: {{ ansible_distribution | lower }}"
+
+- name: Print ansible_distribution_release var
+  ansible.builtin.debug:
+    msg: "ansible_distribution_release: {{ ansible_distribution_release }}"
+
+- name: Print ansible_architecture var
+  ansible.builtin.debug:
+    msg: "ansible_architecture: {{ ansible_architecture }}"
+
+...
