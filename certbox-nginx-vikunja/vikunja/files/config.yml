@@ -4,7 +4,7 @@
 # 2 spaces => tabs
 
 service:
-  frontendurl: "https://vikunja.atjb.link"
+  frontendurl: "45.55.132.191"
   maxitemsperpage: 50
   enablecaldav: true
   motd: "Demo Vikunja Server that was produced with the help of Bitwarden Secrets Manager"
@@ -20,9 +20,9 @@ service:
 database:
   host: "db"
   type: "mysql"
-  database: "vikunja"
+  database: "vikunja-db"
   user: "vikunja"
-  password: "password"
+  password: "changeme"
 
 cache:
   enabled: false
