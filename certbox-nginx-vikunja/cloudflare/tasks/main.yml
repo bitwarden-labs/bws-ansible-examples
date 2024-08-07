@@ -2,14 +2,16 @@
 - name: Obtain server public IPv4
   ansible.builtin.uri:
     url: "https://api.ipify.org"
-    return_content: yes
-  register: public_ip_response
+    return_content: true
+    method: GET
+  register: publicIpResponse
 
-- set_fact:
-    PUBLIC_IP: "{{ public_ip_response.content }}"
+- name: Store public IP
+  ansible.builtin.set_fact:
+    PUBLIC_IP: "{{ publicIpResponse.content }}"
 
 - name: Print public IPv4 to console
-  debug:
+  ansible.builtin.debug:
     var: PUBLIC_IP
 
 # https://docs.ansible.com/ansible/latest/collections/community/general/cloudflare_dns_module.html#community-general-cloudflare-dns-module-manage-cloudflare-dns-records
