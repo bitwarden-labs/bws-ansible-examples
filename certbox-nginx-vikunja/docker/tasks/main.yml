@@ -73,4 +73,9 @@
     state: started
     enabled: true
 
+- name: Install python docker module
+  ansible.builtin.apt:
+    name: python3-docker
+    state: latest
+
 ...
