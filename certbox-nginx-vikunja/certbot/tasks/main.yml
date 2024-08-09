@@ -1,12 +1,4 @@
 ---
-# - name: Install packages
-#   ansible.builtin.apt:
-#     update_cache: true
-#     name:
-#       - certbot
-#       - python3-certbot-dns-cloudflare
-#     state: present
-
 - name: Install Snapd
   ansible.builtin.apt:
     update_cache: true
@@ -30,6 +22,7 @@
   ansible.builtin.command:
     cmd: 'snap set certbot trust-plugin-with-root=ok'
 
+# These plays must be separate due to the classic requirement
 - name: Install Certbot DNS Cloudflare Plugin via Snap 
   community.general.snap:
     name: certbot-dns-cloudflare
