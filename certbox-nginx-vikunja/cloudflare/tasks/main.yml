@@ -17,8 +17,8 @@
 # https://docs.ansible.com/ansible/latest/collections/community/general/cloudflare_dns_module.html#community-general-cloudflare-dns-module-manage-cloudflare-dns-records
 - name: Create vikunja.atjb.link DNS record using serve public IPv4
   community.general.cloudflare_dns:
-    zone: "atjb.link"
-    record: "vikunja"
+    zone: "{{ dns_domain }}"
+    record: "{{ dns_subdomain }}"
     type: "A"
     value: "{{ PUBLIC_IP }}"
     api_token: "{{ cloudflare_token }}"
@@ -28,11 +28,12 @@
     ttl: 900
   register: record
 
-# - name: Delete vikunja DNS record
-#   community.general.cloudflare_dns:
-#     zone: "atjb.link"
-#     record: "vikunja"
-#     api_token: "{{ cloudflare_token }}"
-#     state: absent
+- name: Delete vikunja DNS record
+  when: teardown_mode
+  community.general.cloudflare_dns:
+    zone: "{{ dns_domain }}"
+    record: "{{ dns_subdomain }}"
+    api_token: "{{ cloudflare_token }}"
+    state: absent
 
 ...

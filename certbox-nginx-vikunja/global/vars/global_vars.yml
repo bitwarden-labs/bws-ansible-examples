@@ -2,4 +2,7 @@
 dns_domain: "atjb.link"
 dns_subdomain: "vikunja"
 admin_email: "atjbramley@hotmail.com"
+
+# toggle to 'true' to clean up DNS records before running 'terraform destroy'
+teardown_mode: false
 ...
