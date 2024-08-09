@@ -14,4 +14,19 @@
   ansible.builtin.debug:
     msg: "ansible_architecture: {{ ansible_architecture }}"
 
+- name: Debug teardown_mode value
+  ansible.builtin.debug:
+    var: teardown_mode
+
+- name: Debug dns_domain value
+  ansible.builtin.debug:
+    var: dns_domain
+
+- name: Debug dns_subdomain value
+  ansible.builtin.debug:
+    var: dns_subdomain
+
+- name: Debug admin_email value
+  ansible.builtin.debug:
+    var: admin_email
 ...
