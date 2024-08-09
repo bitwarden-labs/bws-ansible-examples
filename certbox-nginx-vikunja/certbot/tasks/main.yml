@@ -23,19 +23,25 @@
     cmd: 'snap set certbot trust-plugin-with-root=ok'
 
 # These plays must be separate due to the classic requirement
-- name: Install Certbot DNS Cloudflare Plugin via Snap 
+- name: Install Certbot DNS Cloudflare Plugin via Snap
   community.general.snap:
     name: certbot-dns-cloudflare
     classic: true
     state: present
 
-- name: Set certbot config
+- name: Create certbot dir and copy get-certs script
   ansible.builtin.copy:
-    src: ../certbot # this copies the whole directory
+    src: ../certbot
     dest: /root/
     owner: root
     group: root
     mode: '0700'
+
+- name: Inject values into get-certs script
+  ansible.builtin.lineinfile:
+    path: /root/certbot/get-certs.sh
+    insertafter: "    --dns-cloudflare-propagation-seconds 60\\\\"
+    line: "    --domain \"{{ dns_subdomain }}.{{ dns_domain }}\"\\\n    --email \"{{ admin_email }}\""
 
 - name: Set cloudflare API key
   ansible.builtin.lineinfile:

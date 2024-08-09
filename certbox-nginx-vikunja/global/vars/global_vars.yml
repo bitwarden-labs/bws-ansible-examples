@@ -1,4 +1,5 @@
 ---
 dns_domain: "atjb.link"
 dns_subdomain: "vikunja"
+admin_email: "atjbramley@hotmail.com"
 ...
