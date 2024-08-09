@@ -1,10 +1,39 @@
 ---
-- name: Install packages
+# - name: Install packages
+#   ansible.builtin.apt:
+#     update_cache: true
+#     name:
+#       - certbot
+#       - python3-certbot-dns-cloudflare
+#     state: present
+
+- name: Install Snapd
   ansible.builtin.apt:
     update_cache: true
-    name:
-      - certbot
-      - python3-certbot-dns-cloudflare
+    name: snapd
+    state: present
+
+- name: Enable Snapd as a service and start immediately
+  ansible.builtin.systemd:
+    name: snapd
+    state: started
+    enabled: true
+
+# These plays must be separate due to the classic requirement
+- name: Install Certbot Plugin via Snap
+  community.general.snap:
+    name: certbot
+    classic: true
+    state: present
+
+- name: Set var to allow Certbot to communicate with plugins
+  ansible.builtin.command:
+    cmd: 'snap set certbot trust-plugin-with-root=ok'
+
+- name: Install Certbot DNS Cloudflare Plugin via Snap 
+  community.general.snap:
+    name: certbot-dns-cloudflare
+    classic: true
     state: present
 
 - name: Set certbot config
@@ -18,7 +47,7 @@
 - name: Set cloudflare API key
   ansible.builtin.lineinfile:
     path: /root/certbot/cloudflare-credentials.ini
-    line: dns_cloudflare_api_token = {{ cloudflare_api_token }}
+    line: dns_cloudflare_api_token = {{ cloudflare_api_token | trim }}
     create: true
     owner: root
     group: root
