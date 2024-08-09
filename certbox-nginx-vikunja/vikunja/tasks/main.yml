@@ -89,5 +89,10 @@
 #     insertafter: 'MYSQL_USER:'
 #     line: "      MYSQL_PASSWORD: \"{{ vikunja_db_password }}\""
 
-- name: Run Vikunja
-  ansible.builtin.shell: "cd /opt/vikunja && docker compose down && docker compose up -d"
+- name: Run Vikuna
+  community.docker.docker_compose_v2:
+    project_src: /opt/vikunja
+    state: present
+    pull: always
+    recreate: always
+...
