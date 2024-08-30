@@ -1,23 +1,23 @@
 server {
-  if ($host = vikunja.atjb.link) {
+  if ($host = {{ dns_subdomain }}.{{ dns_domain }}) {
     return 301 https://$host$request_uri;
   }
 
   listen 80;
-  server_name vikunja.atjb.link;
+  server_name {{ dns_subdomain }}.{{ dns_domain }};
 }
 
 server {
   listen 443 ssl;
-  server_name vikunja.atjb.link;
+  server_name {{ dns_subdomain }}.{{ dns_domain }};
   set $upstream http://127.0.0.1:3456;
   proxy_redirect off;
   proxy_set_header Host $host;
   proxy_set_header X-Real-IP $remote_addr;
   proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
 
-  ssl_certificate /etc/letsencrypt/live/vikunja.atjb.link/fullchain.pem;
-  ssl_certificate_key /etc/letsencrypt/live/vikunja.atjb.link/privkey.pem;
+  ssl_certificate /etc/letsencrypt/live/{{ dns_subdomain }}.{{ dns_domain }}/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/live/{{ dns_subdomain }}.{{ dns_domain }}/privkey.pem;
 
   ssl_protocols TLSv1.2 TLSv1.3;
   ssl_prefer_server_ciphers on;
