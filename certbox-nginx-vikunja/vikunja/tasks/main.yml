@@ -38,6 +38,13 @@
       {% endfilter %}
     marker: "# {mark} BITWARDEN SECRETS MANAGER MANAGED BLOCK"
 
+- name: Inject FQDN into config.yml
+  ansible.builtin.lineinfile:
+    path: /opt/vikunja/config/config.yml
+    insertafter: "^service:$"
+    line: "  frontendurl: https://{{ dns_subdomain }}.{{ dns_domain }}"
+    create: true
+
 - name: Inject MYSQL Root password into docker-compose.yml
   ansible.builtin.lineinfile:
     path: /opt/vikunja/docker-compose.yml
