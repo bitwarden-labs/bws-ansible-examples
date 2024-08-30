@@ -12,14 +12,6 @@
     group: root
     mode: '0644'
 
-# - name: Copy vikunja config file
-#   ansible.builtin.copy:
-#     src: ./files/vikunja.conf
-#     dest: /etc/nginx/sites-available/
-#     owner: root
-#     group: root
-#     mode: '0644'
-
 - name: Configure vikunja nginx config
   ansible.builtin.template:
     src: ./files/vikunja.conf.j2
