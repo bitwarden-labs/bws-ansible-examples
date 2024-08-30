@@ -4,7 +4,6 @@
 # 2 spaces => tabs
 
 service:
-  frontendurl: "157.245.208.55"
   maxitemsperpage: 50
   enablecaldav: true
   motd: "Demo Vikunja Server that was produced with the help of Bitwarden Secrets Manager"
