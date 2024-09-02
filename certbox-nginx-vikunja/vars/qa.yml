@@ -1,0 +1,7 @@
+---
+qa:
+  dns_domain: "atjb.link"
+  dns_subdomain: "qa"
+  admin_email: "atjbramley@hotmail.com"
+
+...
