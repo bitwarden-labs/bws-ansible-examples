@@ -17,8 +17,8 @@
 # https://docs.ansible.com/ansible/latest/collections/community/general/cloudflare_dns_module.html#community-general-cloudflare-dns-module-manage-cloudflare-dns-records
 - name: Create DNS record using public IPv4
   community.general.cloudflare_dns:
-    zone: "{{ vars[deployment_env]['dns_domain'] }}"
-    record: "{{ vars[deployment_env]['dns_subdomain'] }}"
+    zone: "{{ vars[deployment_env]['dns']['domain'] }}"
+    record: "{{ vars[deployment_env]['dns']['subdomain'] }}"
     type: "A"
     value: "{{ PUBLIC_IP }}"
     api_token: "{{ cloudflare_token }}"
