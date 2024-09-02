@@ -82,6 +82,7 @@
       loop:
         - { insertafter: "MYSQL_DATABASE:", line: "            MYSQL_ROOT_PASSWORD: {{ root_db_password }}" }
         - { insertafter: "MYSQL_USER:", line: "            MYSQL_PASSWORD: {{ vikunja_db_password }}" }
+      no_log: true
 
 - name: Run Vikunja
   block:
