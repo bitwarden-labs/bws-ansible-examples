@@ -1,5 +1,6 @@
 ---
 # n.b. - this file is not intended to be run.
+# This file is not called by the main playbook.
 # Instead, it serves of an example as to where hardcoding secrets can occur.
 
 - name: Obtain server public IPv4
@@ -23,7 +24,7 @@
     record: "vikunja"
     type: "A"
     value: "192.168.80.242"
-    api_token: "Hot71Q86hhhqsL2lp09z0L2k7qCSXw7fakSnFG9atG"
+    api_token: "Hot71Q86hhhqsL2lp09z0L2k7qCSXw7fakSnFG9atG" # This is a dummy credential, used an example of hardcoding.
     proxied: false
     state: present
     solo: true
@@ -34,5 +35,5 @@
 #   community.general.cloudflare_dns:
 #     zone: "atjb.link"
 #     record: "vikunja"
-#     api_token: "Hot71Q86hhhqsL2lp09z0L2k7qCSXw7fakSnFG9atG""
+#     api_token: "Hot71Q86hhhqsL2lp09z0L2k7qCSXw7fakSnFG9atG"" # This is a dummy credential, used as an example of hardcoding.
 #     state: absent
