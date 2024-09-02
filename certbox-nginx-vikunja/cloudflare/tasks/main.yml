@@ -15,7 +15,7 @@
     var: PUBLIC_IP
 
 # https://docs.ansible.com/ansible/latest/collections/community/general/cloudflare_dns_module.html#community-general-cloudflare-dns-module-manage-cloudflare-dns-records
-- name: Create vikunja.atjb.link DNS record using serve public IPv4
+- name: Create DNS record using public IPv4
   community.general.cloudflare_dns:
     zone: "{{ dns_domain }}"
     record: "{{ dns_subdomain }}"
