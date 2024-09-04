@@ -37,6 +37,12 @@
     group: root
     mode: '0700'
 
+- name: Set Cloudflare values dynamically
+  ansible.builtin.set_fact:
+    dns_domain: "{{ vars[deployment_env]['dns']['domain'] }}"
+    dns_subdomain: "{{ vars[deployment_env]['dns']['subdomain'] }}"
+    admin_email: "{{ vars[deployment_env]['dns']['admin_email'] }}"
+
 - name: Inject values into get-certs script
   ansible.builtin.lineinfile:
     path: /root/certbot/get-certs.sh
