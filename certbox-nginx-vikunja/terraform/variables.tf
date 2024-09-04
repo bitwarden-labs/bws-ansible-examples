@@ -13,3 +13,13 @@ variable "digitalocean_project_id" {
   type = string
   default = "bitwarden_terraform"
 }
+
+variable "droplet_names" {
+  type = list(string)
+  default = ["digitalocean_qa", "digitalocean_production"]
+}
+
+variable "environment_tags" {
+  type = list(string)
+  default = [ "qa", "production" ]
+}

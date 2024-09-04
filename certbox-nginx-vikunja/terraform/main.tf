@@ -1,9 +1,14 @@
 resource "digitalocean_droplet" "exampleserver" {
-  name     = "example"
-  image    = "ubuntu-20-04-x64"
-  region   = "nyc3"
-  size     = "s-1vcpu-1gb"
-  ssh_keys = [data.digitalocean_ssh_key.terraform.id]
+  count      = 2
+  name       = "example-${count.index}"
+  image      = "ubuntu-20-04-x64"
+  region     = "nyc3"
+  size       = "s-1vcpu-1gb"
+  ssh_keys   = [data.digitalocean_ssh_key.terraform.id]
+  backups    = false
+  monitoring = false
+
+  tags = ["${var.environment_tags[count.index]}"]
 
 
   # provisioner "remote-exec" {
@@ -26,5 +31,5 @@ resource "digitalocean_droplet" "exampleserver" {
 
 resource "digitalocean_project_resources" "bitwarden_tf" {
   project   = var.digitalocean_project_id
-  resources = [digitalocean_droplet.exampleserver.urn]
+  resources = [for i in range(length(digitalocean_droplet.exampleserver)): digitalocean_droplet.exampleserver[i].urn]
 }
