@@ -1,4 +1,0 @@
----
-bws_access_token: "{{ lookup('env', 'BWS_ACCESS_TOKEN') }}"
-cloudflare_api_token: "{{ lookup('bitwarden.secrets.lookup', 'c253227b-6b98-48c6-843a-b12900b875d5') }}"
-...

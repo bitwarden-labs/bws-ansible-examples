@@ -1,7 +1,0 @@
----
-deployment_env: 'production'
-
-# toggle to 'true' to clean up DNS records before running 'terraform destroy'
-teardown_mode: false
-rotate_secrets_mode: false
-...

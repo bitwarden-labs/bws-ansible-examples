@@ -1,3 +1,0 @@
----
-bws_access_token_datto: "{{ lookup('bitwarden.secrets.lookup', '1511d0a7-941f-4895-b4d5-b12900e770f4') }}"
-...
