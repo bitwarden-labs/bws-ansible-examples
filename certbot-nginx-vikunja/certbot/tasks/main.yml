@@ -1,0 +1,88 @@
+---
+- name: Install Snapd
+  ansible.builtin.apt:
+    update_cache: true
+    name: snapd
+    state: present
+
+- name: Enable Snapd as a service and start immediately
+  ansible.builtin.systemd:
+    name: snapd
+    state: started
+    enabled: true
+
+# These plays must be separate due to the classic requirement
+- name: Install Certbot Plugin via Snap
+  community.general.snap:
+    name: certbot
+    classic: true
+    state: present
+
+- name: Set var to allow Certbot to communicate with plugins
+  ansible.builtin.command:
+    cmd: 'snap set certbot trust-plugin-with-root=ok'
+
+# These plays must be separate due to the classic requirement
+- name: Install Certbot DNS Cloudflare Plugin via Snap
+  community.general.snap:
+    name: certbot-dns-cloudflare
+    classic: true
+    state: present
+
+- name: Create certbot dir and copy get-certs script
+  ansible.builtin.copy:
+    src: ../certbot
+    dest: /root/
+    owner: root
+    group: root
+    mode: '0700'
+
+- name: Set Cloudflare values dynamically
+  ansible.builtin.set_fact:
+    dns_domain: "{{ vars[deployment_env]['dns']['domain'] }}"
+    dns_subdomain: "{{ vars[deployment_env]['dns']['subdomain'] }}"
+    admin_email: "{{ vars[deployment_env]['dns']['admin_email'] }}"
+
+- name: Inject values into get-certs script
+  ansible.builtin.lineinfile:
+    path: /root/certbot/get-certs.sh
+    insertafter: "    --dns-cloudflare-propagation-seconds 60\\\\"
+    line: "    --domain \"{{ dns_subdomain }}.{{ dns_domain }}\"\\\n    --email \"{{ admin_email }}\""
+
+- name: Set cloudflare API key
+  ansible.builtin.lineinfile:
+    path: /root/certbot/cloudflare-credentials.ini
+    line: dns_cloudflare_api_token = {{ cloudflare_api_token | trim }}
+    create: true
+    owner: root
+    group: root
+    mode: '0600'
+
+- name: Configure certbot service
+  ansible.builtin.copy:
+    src: ../files/certbot.service
+    dest: /etc/systemd/system/certbot.service
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Configure timer
+  ansible.builtin.copy:
+    src: ../files/certbot.timer
+    dest: /etc/systemd/system/certbot.timer
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Ensure certbot.timer is started and enabled on boot
+  ansible.builtin.systemd:
+    name: certbot.timer
+    state: started
+    enabled: true
+
+- name: Run get-certs.sh script
+  ansible.builtin.command:
+    cmd: "/root/certbot/get-certs.sh"
+  changed_when: false
+
+...

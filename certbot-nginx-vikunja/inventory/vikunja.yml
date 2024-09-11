@@ -1,0 +1,10 @@
+---
+all:
+  children:
+    qa:
+      hosts:
+        digitalocean_qa:
+    production:
+      hosts:
+        digitalocean_production:
+...

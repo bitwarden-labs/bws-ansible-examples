@@ -1,0 +1,81 @@
+---
+- name: Uninstall old Docker versions
+  ansible.builtin.apt:
+    name:
+      - docker.io
+      - docker-doc
+      - docker-compose
+      - podman-docker
+      - containerd
+      - runc
+    state: absent
+  become: true
+
+- name: Install required system packages
+  ansible.builtin.apt:
+    name:
+      - apt-transport-https
+      - ca-certificates
+      - lsb-release
+      - gnupg
+    state: latest
+    update_cache: true
+  become: true
+
+- name: Add Docker GPG apt key
+  ansible.builtin.apt_key:
+    url: "https://download.docker.com/linux/{{ ansible_distribution | lower }}/gpg"
+    state: present
+  become: true
+
+- name: Add repository to sources list
+  ansible.builtin.apt_repository:
+    repo: "deb https://download.docker.com/linux/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} stable"
+    state: present
+
+- name: Update apt and install docker-ce
+  ansible.builtin.apt:
+    name: docker-ce
+    state: latest
+    update_cache: true
+
+- name: Install Docker
+  ansible.builtin.apt:
+    name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-buildx-plugin
+      - docker-compose-plugin
+    state: latest
+    update_cache: true
+
+- name: Add ansible to docker group
+  ansible.builtin.user:
+    name: ansible
+    groups: docker
+    append: true
+  become: true
+
+- name: Copy daemon.json
+  ansible.builtin.copy:
+    src: files/daemon.json
+    dest: /etc/docker/daemon.json
+    owner: root
+    group: root
+    mode: '0644'
+  notify: Restart docker
+  become: true
+
+- name: Ensure Docker is started and enabled at boot
+  ansible.builtin.systemd:
+    name: docker
+    state: started
+    enabled: true
+
+- name: Install python docker module
+  ansible.builtin.apt:
+    name: python3-docker
+    state: latest
+
+...

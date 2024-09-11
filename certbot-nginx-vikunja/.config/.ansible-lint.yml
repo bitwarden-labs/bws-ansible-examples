@@ -1,0 +1,5 @@
+---
+rules:
+  - 'package-latest: false'
+  - 'no-relative-paths: false'
+...
