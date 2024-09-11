@@ -1,2 +1,6 @@
-venv
+# Local ansible config
 ansible.cfg
+
+# Local folders
+create-ansible-user/
+venv/
