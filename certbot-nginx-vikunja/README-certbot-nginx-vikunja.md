@@ -25,7 +25,7 @@ Feel free to use the project as a base for your own work!  Examples could includ
 
 ## Secrets management
 
-### An over overview of Secrets management in ansible
+### An overview of Secrets management in ansible
 
 Ansible allows for the use of Jinja2 templating, in order to evaluate variables dynamically at runtime (<https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_templating.html>).  This project uses Jinja2 templating to retrieve secrets from Bitwarden Secrets Manager, allowing for the use of loops to set multiple secrets in a single play.
 
