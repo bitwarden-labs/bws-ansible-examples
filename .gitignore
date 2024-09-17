@@ -2,5 +2,6 @@
 ansible.cfg
 
 # Local folders
+sdks/
 create-ansible-user/
 venv/
