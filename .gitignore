@@ -1,3 +1,6 @@
+# macOS files
+.DS_Store
+
 # Local ansible config
 ansible.cfg
 
