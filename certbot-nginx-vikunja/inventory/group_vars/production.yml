@@ -1,9 +1,9 @@
 ---
 production:
   dns:
-    domain: "atjb.link"
+    domain: "example.com"
     subdomain: "vikunja"
-    admin_email: "qa@example.com"
+    admin_email: "production@example.com"
 
   vikunja:
     root_db_password: "b7755849-c177-498f-a8f9-b12c00ec7520"
