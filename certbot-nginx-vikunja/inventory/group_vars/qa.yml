@@ -1,5 +1,8 @@
 ---
 qa:
+  cloudflare:
+    cloudflare_api_token: 'c253227b-6b98-48c6-843a-b12900b875d5'
+
   dns:
     domain: "anotherexample.com"
     subdomain: "qa"

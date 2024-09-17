@@ -1,5 +1,8 @@
 ---
 production:
+  cloudflare:
+    cloudflare_api_token: 'd487e105-02ea-4561-91fd-23d4b1a0cd1f'
+  
   dns:
     domain: "example.com"
     subdomain: "vikunja"
