@@ -2,6 +2,16 @@
 
 A repository giving example use-cases for the Bitwarden Secrets Manager Ansible Integration
 
+## certbot-nginx-vikunja
+
+This repository stands up an example of Vikunja, an excellent open-source project management tool (<https://vikunja.io/>).
+This example features Vikunja run in Docker, with a simple nginx reverse proxy installed on the host OS.
+Certificates are managed by Certbot, and a Cloudflare plugin is used to set and remove DNS records.
+
+## Instructions and Usage
+
+Detailed Instructions are found in the certbot-nginx-vikunja.md file.
+
 ## Instructions
 
 - run commands using the following:
