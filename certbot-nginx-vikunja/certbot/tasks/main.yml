@@ -20,7 +20,7 @@
 
 - name: Set var to allow Certbot to communicate with plugins
   ansible.builtin.command:
-    cmd: 'snap set certbot trust-plugin-with-root=ok'
+    cmd: "snap set certbot trust-plugin-with-root=ok"
 
 # These plays must be separate due to the classic requirement
 - name: Install Certbot DNS Cloudflare Plugin via Snap
@@ -35,28 +35,38 @@
     dest: /root/
     owner: root
     group: root
-    mode: '0700'
+    mode: "0700"
 
-- name: Set Cloudflare values dynamically
+- name: Set Cloudflare values dynamically from ansible environment
   ansible.builtin.set_fact:
     dns_domain: "{{ vars[deployment_env]['dns']['domain'] }}"
     dns_subdomain: "{{ vars[deployment_env]['dns']['subdomain'] }}"
-    admin_email: "{{ vars[deployment_env]['dns']['admin_email'] }}"
+
+- name: Set Cloudflare values details dynamically from BWS
+  ansible.builtin.set_fact:
+    cloudflare_dict: >-
+      {{
+        cloudflare_dict | default({}) |
+        combine ({ item.key: lookup('bitwarden.secrets.lookup', item.value )})
+      }}
+  loop:
+    - { key: 'cloudflare_admin_email', value: "{{ vars[deployment_env]['cloudflare']['cloudflare_admin_email'] }}" }
+    - { key: 'cloudflare_api_token', value: "{{ vars[deployment_env]['cloudflare']['cloudflare_api_token'] }}" }
 
 - name: Inject values into get-certs script
   ansible.builtin.lineinfile:
     path: /root/certbot/get-certs.sh
     insertafter: "    --dns-cloudflare-propagation-seconds 60\\\\"
-    line: "    --domain \"{{ dns_subdomain }}.{{ dns_domain }}\"\\\n    --email \"{{ admin_email }}\""
+    line: "    --domain \"{{ dns_subdomain }}.{{ dns_domain }}\"\\\n    --email \"{{ cloudflare_dict.cloudflare_admin_email }}\""
 
 - name: Set cloudflare API key
   ansible.builtin.lineinfile:
     path: /root/certbot/cloudflare-credentials.ini
-    line: dns_cloudflare_api_token = {{ cloudflare_api_token | trim }}
+    line: dns_cloudflare_api_token = {{ cloudflare_dict.cloudflare_api_token | trim }}
     create: true
     owner: root
     group: root
-    mode: '0600'
+    mode: "0600"
 
 - name: Configure certbot service
   ansible.builtin.copy:
@@ -64,7 +74,7 @@
     dest: /etc/systemd/system/certbot.service
     owner: root
     group: root
-    mode: '0644'
+    mode: "0644"
 
 - name: Configure timer
   ansible.builtin.copy:
@@ -72,7 +82,7 @@
     dest: /etc/systemd/system/certbot.timer
     owner: root
     group: root
-    mode: '0644'
+    mode: "0644"
 
 - name: Ensure certbot.timer is started and enabled on boot
   ansible.builtin.systemd:
@@ -84,5 +94,3 @@
   ansible.builtin.command:
     cmd: "/root/certbot/get-certs.sh"
   changed_when: false
-
-...
