@@ -1,12 +1,12 @@
 ---
 production:
   cloudflare:
+    cloudflare_admin_email: '1dee3a66-b290-485d-8b53-720584ff68fe'
     cloudflare_api_token: 'd487e105-02ea-4561-91fd-23d4b1a0cd1f'
   
   dns:
     domain: "example.com"
     subdomain: "vikunja"
-    admin_email: "production@example.com"
 
   vikunja:
     root_db_password: "b7755849-c177-498f-a8f9-b12c00ec7520"
