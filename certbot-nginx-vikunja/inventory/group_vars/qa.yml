@@ -1,12 +1,12 @@
 ---
 qa:
   cloudflare:
+    cloudflare_admin_email: 'b11dcc22-b924-490f-a154-b138012525ef'
     cloudflare_api_token: 'c253227b-6b98-48c6-843a-b12900b875d5'
 
   dns:
-    domain: "anotherexample.com"
+    domain: "anotherExample.com"
     subdomain: "qa"
-    admin_email: "qa@anotherexample.com"
 
   vikunja:
     root_db_password: "b7755849-c177-498f-a8f9-b12c00ec7520"
