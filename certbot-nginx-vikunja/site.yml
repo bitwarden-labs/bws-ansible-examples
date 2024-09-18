@@ -11,5 +11,5 @@
     - certbot
     - nginx
     - vikunja
-    - debug
+    # debug
 ...
