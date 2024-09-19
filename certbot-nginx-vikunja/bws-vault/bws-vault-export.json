@@ -1,0 +1,208 @@
+{
+  "projects": [
+    {
+      "id": "d1f6ee4d-c43d-4fd5-b121-b12500b0c362",
+      "name": "bws-ansible-vikunja-qa"
+    },
+    {
+      "id": "ea28517e-79d2-42a4-a449-2fbece58f739",
+      "name": "bws-ansible-vikunja-production"
+    }
+  ],
+  "secrets": [
+    {
+      "key": "vikunja_root_db_password",
+      "value": "Zq33yzm9VqF3eqYV8X3b",
+      "note": "Root DB password for Vikunja docker-compose.yml",
+      "id": "b7755849-c177-498f-a8f9-b12c00ec7520",
+      "projectIds": [
+        "d1f6ee4d-c43d-4fd5-b121-b12500b0c362"
+      ]
+    },
+    {
+      "key": "cloudflare_email",
+      "value": "user@example.com",
+      "note": "Cloudflare email address",
+      "id": "b11dcc22-b924-490f-a154-b138012525ef",
+      "projectIds": [
+        "d1f6ee4d-c43d-4fd5-b121-b12500b0c362"
+      ]
+    },
+    {
+      "key": "cloudflare_zone",
+      "value": "domain.com",
+      "note": "Cloudflare API Zone",
+      "id": "14fb543e-04ea-4094-93e7-b1380125bca7",
+      "projectIds": [
+        "d1f6ee4d-c43d-4fd5-b121-b12500b0c362"
+      ]
+    },
+    {
+      "key": "cloudflare_record",
+      "value": "vikunja",
+      "note": "Cloudflare record to edit",
+      "id": "c10d95ee-83ab-42b3-b1fa-b1380125d93e",
+      "projectIds": [
+        "d1f6ee4d-c43d-4fd5-b121-b12500b0c362"
+      ]
+    },
+    {
+      "key": "vikunja_db_password",
+      "value": "zvHTzV3EtinUyQsoE5iu",
+      "note": "Vikunja user for db for docker-compose.yml",
+      "id": "9ee37f8c-3051-4a5a-bd37-b12c00ec9bda",
+      "projectIds": [
+        "d1f6ee4d-c43d-4fd5-b121-b12500b0c362"
+      ]
+    },
+    {
+      "key": "vikunja_root_db_password",
+      "value": "Zq33yzm9VqF3eqYV8X3b",
+      "note": "Root DB password for Vikunja docker-compose.yml",
+      "id": "b2f1128a-d4e7-415b-afd4-6739172deaa0",
+      "projectIds": [
+        "ea28517e-79d2-42a4-a449-2fbece58f739"
+      ]
+    },
+    {
+      "key": "cloudflare_email",
+      "value": "email@example.com",
+      "note": "Cloudflare email address",
+      "id": "1dee3a66-b290-485d-8b53-720584ff68fe",
+      "projectIds": [
+        "ea28517e-79d2-42a4-a449-2fbece58f739"
+      ]
+    },
+    {
+      "key": "cloudflare_zone",
+      "value": "domain.com",
+      "note": "Cloudflare API Zone",
+      "id": "2f5cc5f8-3412-4d47-8d57-eaa8d8f72666",
+      "projectIds": [
+        "ea28517e-79d2-42a4-a449-2fbece58f739"
+      ]
+    },
+    {
+      "key": "cloudflare_record",
+      "value": "vikunja",
+      "note": "Cloudflare record to edit",
+      "id": "1b1e9233-adcb-4dd3-88d8-12ee8044cad3",
+      "projectIds": [
+        "ea28517e-79d2-42a4-a449-2fbece58f739"
+      ]
+    },
+    {
+      "key": "vikunja_db_password",
+      "value": "zvHTzV3EtinUyQsoE5iu",
+      "note": "Vikunja user for db for docker-compose.yml",
+      "id": "e6f501ae-1393-4621-955d-b90106012625",
+      "projectIds": [
+        "ea28517e-79d2-42a4-a449-2fbece58f739"
+      ]
+    },
+    {
+      "key": "another secret",
+      "value": "Zq33yzm9VqF3eqYV8X3b",
+      "note": "Root DB password for Vikunja docker-compose.yml",
+      "id": "fc0d915b-0d4b-4d19-ab2a-6956344e1f8f",
+      "projectIds": []
+    },
+    {
+      "key": "vikunja_root_db_password",
+      "value": "Zq33yzm9VqF3eqYV8X3b",
+      "note": "Root DB password for Vikunja docker-compose.yml",
+      "id": "aae0c11e-0dce-4508-8f25-88df6c096dc4",
+      "projectIds": []
+    },
+    {
+      "key": "smtp_host",
+      "value": "smtp.provider.net",
+      "note": "",
+      "id": "21de9314-ee7e-4bda-8122-c7768072ded0",
+      "projectIds": [
+        "ea28517e-79d2-42a4-a449-2fbece58f739"
+      ]
+    },
+    {
+      "key": "smtp_password",
+      "value": "fhWFHw933qC2£",
+      "note": "",
+      "id": "9d85fd9c-c634-4434-bec3-82952c4e564c",
+      "projectIds": [
+        "ea28517e-79d2-42a4-a449-2fbece58f739"
+      ]
+    },
+    {
+      "key": "smtp_username",
+      "value": "noreply@example.com",
+      "note": "",
+      "id": "882b6f17-d657-4d96-b548-a6e09d49c024",
+      "projectIds": [
+        "ea28517e-79d2-42a4-a449-2fbece58f739"
+      ]
+    },
+    {
+      "key": "smtp_from_address",
+      "value": "noreply@example.com",
+      "note": "",
+      "id": "43c24894-ec73-4083-8207-277b4e2eb4c2",
+      "projectIds": [
+        "ea28517e-79d2-42a4-a449-2fbece58f739"
+      ]
+    },
+    {
+      "key": "smtp_from_address",
+      "value": "noreply@example.com",
+      "note": "",
+      "id": "30eec674-e931-49a7-a730-b12c00ed20c7",
+      "projectIds": [
+        "d1f6ee4d-c43d-4fd5-b121-b12500b0c362"
+      ]
+    },
+    {
+      "key": "smtp_host",
+      "value": "smtp.provider.net",
+      "note": "",
+      "id": "d0f2a8ff-5ab1-41f7-a4e6-b12c00ecb40c",
+      "projectIds": [
+        "d1f6ee4d-c43d-4fd5-b121-b12500b0c362"
+      ]
+    },
+    {
+      "key": "smtp_password",
+      "value": "fhWFHw933qC2£",
+      "note": "",
+      "id": "d9edd55c-8b92-4abb-9157-b12c00ed0e86",
+      "projectIds": [
+        "d1f6ee4d-c43d-4fd5-b121-b12500b0c362"
+      ]
+    },
+    {
+      "key": "smtp_username",
+      "value": "noreply@example.com",
+      "note": "",
+      "id": "46306144-cd4f-4b45-b0a7-b12c00ecef80",
+      "projectIds": [
+        "d1f6ee4d-c43d-4fd5-b121-b12500b0c362"
+      ]
+    },
+    {
+      "key": "cloudflare_api_token",
+      "value": "AZR4ee4d-ZR48xZTNbHohkK5FHw933qC2",
+      "note": "",
+      "id": "d487e105-02ea-4561-91fd-23d4b1a0cd1f",
+      "projectIds": [
+        "ea28517e-79d2-42a4-a449-2fbece58f739"
+      ]
+    },
+    {
+      "key": "cloudflare_api_token",
+      "value": "AZR4ee4d-ZR48xZTNbHohkK5FHw933qC2",
+      "note": "",
+      "id": "c253227b-6b98-48c6-843a-b12900b875d5",
+      "projectIds": [
+        "d1f6ee4d-c43d-4fd5-b121-b12500b0c362"
+      ]
+    }
+  ]
+}
