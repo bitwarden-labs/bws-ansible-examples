@@ -6,7 +6,7 @@ In addition to being directly useful to existing Vikunja users, it is hoped that
 
 ## Usage Instructions
 
-- Install ansible, including the Bitwarden SM SDK and the necessary module from ansible galaxy:
+- Install ansible, including the Bitwarden SM SDK and the necessary modules from ansible galaxy:
 
   - git clone https://github.com/bitwarden-labs/bws-ansible-examples.git
   - cd bws-ansible-examples
@@ -21,8 +21,8 @@ In addition to being directly useful to existing Vikunja users, it is hoped that
   - Enter the IPs and SSH keys for 2x servers in `/inventory/host_vars` (example terraform is provided for DigitalOcean)
 
 - Configure the machine to access Bitwarden Secrets Manager
-  - Import the example BWS Projects to your BWSM vault
-  - Create a Machine Account for the Ansible Host and give it access to the 2 Projects imported (<https://bitwarden.com/help/machine-accounts/>)
+  - Import the example BWS Projects to your BWSM vault from `/bws-vault/bws-vault-export.json`
+  - Create a Machine Account for the Ansible Host and give it access to the 2 Projects imported in the step above (<https://bitwarden.com/help/machine-accounts/>)
   - Create an Access Token for the Ansible Host and set it as an environmental variable (<https://bitwarden.com/help/access-tokens/>)
 
 - Optional Steps
