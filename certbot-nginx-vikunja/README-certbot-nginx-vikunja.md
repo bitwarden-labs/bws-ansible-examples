@@ -13,8 +13,7 @@ In addition to being directly useful to existing Vikunja users, it is hoped that
   - python3 -m venv ./venv (creates a Python virtual environment to work in)
   - source ./venv/bin/activate (actives the virtual environment.  Use 'deactivate' to return to your normal namespace)
   - python3 -m pip install ansible bitwarden-sdk
-  - ansible-galaxy collection install community.docker
-  - ansible-galaxy collection install bitwarden.secrets
+  - ansible-galaxy collection install community.docker bitwarden.secrets
   - export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES  (for macOS only)
 
 - Configure a domain with Cloudflare and set an API Token (<https://developers.cloudflare.com/fundamentals/api/get-started/create-token/>)
