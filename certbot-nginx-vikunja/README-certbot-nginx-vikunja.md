@@ -133,8 +133,8 @@ This directory contains examples of how ansible can be used to manage multiple e
 
 The simplest way to define an environment is then at runtime using command-line flags.  Ansible supports multiple levels of precedence of variables, of defining the variable via a CLI argument using the -e flag takes the highest precedence, e.g.:
 
-- `ansible-playbook runner.yml -i ./inventory/vikunja.yml -e "deployment_env=qa"`
-- `ansible-playbook runner.yml -i ./inventory/vikunja.yml -e "deployment_env=production"`
+- `ansible-playbook site.yml -i ./inventory/vikunja.yml -e "deployment_env=qa"`
+- `ansible-playbook site.yml -i ./inventory/vikunja.yml -e "deployment_env=production"`
 
 Full documentation for variable precendence in ansible can be found at:
 <https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_variables.html#where-to-set-variables>
