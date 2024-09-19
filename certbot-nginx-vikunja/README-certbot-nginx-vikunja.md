@@ -16,11 +16,22 @@ In addition to being directly useful to existing Vikunja users, it is hoped that
   - ansible-galaxy collection install community.docker bitwarden.secrets
   - export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES  (for macOS only)
 
-- Configure a domain with Cloudflare and set an API Token (<https://developers.cloudflare.com/fundamentals/api/get-started/create-token/>)
-- Set your domains and subdomains in `/inventory/group_vars`
-- Enter the IPs and SSH keys for 2x servers in `/inventory/host_vars`
-- Set the Secret IDs for secrets, and give the ansible controller access to those projects (<https://bitwarden.com/help/projects/>) and (<https://bitwarden.com/help/access-tokens/>)
-- run ___'ansible-playbook site.yml -i ./inventory/vikunja.yml -e "deployment_env=qa"'___ or ___'ansible-playbook site.yml -i ./inventory/vikunja.yml -e "deployment_env=production"'___ to start the playbooks
+- Configure the ansible role:
+  - Set your domains and subdomains in `/inventory/group_vars`
+  - Enter the IPs and SSH keys for 2x servers in `/inventory/host_vars` (example terraform is provided for DigitalOcean)
+
+- Configure the machine to access Bitwarden Secrets Manager
+  - Import the example BWS Projects to your BWSM vault
+  - Create a Machine Account for the Ansible Host and give it access to the 2 Projects imported (<https://bitwarden.com/help/machine-accounts/>)
+  - Create an Access Token for the Ansible Host and set it as an environmental variable (<https://bitwarden.com/help/access-tokens/>)
+
+- Optional Steps
+  - Configure a domain with Cloudflare and set an API Token (<https://developers.cloudflare.com/fundamentals/api/get-started/create-token/>)
+  - Edit the secrets created in Bitwarden Secrets Manager to reflect your SMTP and Cloudflare credentials
+
+- Launch!
+  - Comment out any roles that you are not ready to use (See TLDR below)
+  - from the certbot-nginx-vikunja directory, run ___'ansible-playbook site.yml -i ./inventory/vikunja.yml -e "deployment_env=qa"'___ or ___'ansible-playbook site.yml -i ./inventory/vikunja.yml -e "deployment_env=production"'___ to start the playbooks
 
 ### TLDR - I just want to see some code running!
 
