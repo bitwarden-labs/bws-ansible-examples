@@ -10,7 +10,7 @@ Certificates are managed by Certbot, and a Cloudflare plugin is used to set and 
 
 ## Instructions and Usage
 
-Detailed Instructions are found in the certbot-nginx-vikunja.md file.
+Detailed Instructions are found in the [certbot-nginx-vikunja.md](certbot-nginx-vikunja/README-certbot-nginx-vikunja.md) file.
 
 ## Instructions
 
