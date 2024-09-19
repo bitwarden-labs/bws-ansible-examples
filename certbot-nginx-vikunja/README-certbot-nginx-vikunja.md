@@ -6,11 +6,21 @@ In addition to being directly useful to existing Vikunja users, it is hoped that
 
 ## Usage Instructions
 
+- Install ansible, including the Bitwarden SM SDK and the necessary module from ansible galaxy:
+
+  - git clone https://github.com/bitwarden-labs/bws-ansible-examples.git
+  - cd bws-ansible-examples
+  - python3 -m venv ./venv (creates a Python virtual environment to work in)
+  - source ./venv/bin/activate (actives the virtual environment.  Use 'deactivate' to return to your normal namespace)
+  - python3 -m pip install ansible bitwarden-sdk
+  - ansible-galaxy collection install community.docker
+  - ansible-galaxy collection install bitwarden.secrets
+  - export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES  (for macOS only)
+
 - Configure a domain with Cloudflare and set an API Token (<https://developers.cloudflare.com/fundamentals/api/get-started/create-token/>)
-- Set your domains and subdomains in /inventory/group_vars
-- Enter the IPs and SSH keys for 2x servers in /inventory/host_vars
+- Set your domains and subdomains in `/inventory/group_vars`
+- Enter the IPs and SSH keys for 2x servers in `/inventory/host_vars`
 - Set the Secret IDs for secrets, and give the ansible controller access to those projects (<https://bitwarden.com/help/projects/>) and (<https://bitwarden.com/help/access-tokens/>)
-- Install and configure the Bitwarden Secrets Manager ansible plugin (<https://bitwarden.com/help/ansible-integration/>)
 - run ___'ansible-playbook site.yml -i ./inventory/vikunja.yml -e "deployment_env=qa"'___ or ___'ansible-playbook site.yml -i ./inventory/vikunja.yml -e "deployment_env=production"'___ to start the playbooks
 
 ### TLDR - I just want to see some code running!
