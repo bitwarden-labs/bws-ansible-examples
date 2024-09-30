@@ -57,3 +57,5 @@
         first_secret: "{{ dictionary.first_secret }}"
         second_secret: "{{ dictionary.second_secret }}"
         foo: "{{ vars['example']['ansible-vars']['foo'] }}"
+
+...
