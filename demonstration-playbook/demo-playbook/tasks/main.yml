@@ -1,0 +1,59 @@
+---
+- name: 1 - Display a secret from BWS
+  ansible.builtin.debug:
+    msg: "Secret: {{ lookup('bitwarden.secrets.lookup', '30eec674-e931-49a7-a730-b12c00ed20c7') }}"
+
+- name: 2- Display a variable from ansible, overwrite if present in BWS
+  block:
+  - name: Attempt to set ansible var from BWS
+    ansible.builtin.set_fact:
+      secret: "{{ lookup('bitwarden.secrets.lookup', '', errors='ignore') | default('') }}"
+      ignore_errors: true
+
+  - name: Display value from BWS, display default if not present
+    ansible.builtin.debug:
+      msg: "Secret: {{ secret }} | default ('user@example.com', true) }}"
+
+- name: 3 - Write a file with a secret injected
+  block:
+  - name: Copy a file to a location
+    ansible.builtin.copy:
+      src: ./files/example.txt
+      dest: ~/Desktop/example.txt
+      owner: "{{ ansible_user_id }}"
+      # group: "{{ ansible_user_id }}"
+      mode: '0644'
+
+  - name: Inject a secret into this file
+    ansible.builtin.lineinfile:
+      path: ~/Desktop/example.txt
+      line: "Secret: {{ lookup('bitwarden.secrets.lookup', '30eec674-e931-49a7-a730-b12c00ed20c7') }}"
+
+- name: 4 - Write a file with multiple secrets injected
+  block:
+    - name: Create a dictionary of secrets
+      ansible.builtin.set_fact:
+        dictionary: >-
+          {{
+            dictionary | default ({}) |
+            combine ({ item.key: lookup('bitwarden.secrets.lookup', item.value )})
+          }}
+      loop:
+        - { key: 'first_secret', value: "{{ vars['example']['bws-secrets']['secret1'] }}" }
+        - { key: 'second_secret', value: "{{ vars['example']['bws-secrets']['secret2'] }}" }
+
+    - name: Check secret value from dictionary
+      ansible.builtin.debug:
+        msg: "{{ dictionary.first_secret }}"
+
+    - name: Inject secrets into a Jinja2 template and copy it to destination
+      ansible.builtin.template:
+        src: ./templates/template.j2
+        dest: ~/Desktop/injected_secrets.txt
+        mode: '0644'
+      vars:
+        first_secret: "{{ dictionary.first_secret }}"
+        second_secret: "{{ dictionary.second_secret }}"
+        foo: "{{ vars['example']['ansible-vars']['foo'] }}"
+
+...

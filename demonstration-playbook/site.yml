@@ -1,0 +1,10 @@
+---
+- name: Demonstrate using BWS in Ansible
+  hosts: localhost
+  gather_facts: true
+  vars_files:
+    - ./demo-playbook/vars/demo-vars.yml
+  roles:
+    - demo-playbook
+
+...
