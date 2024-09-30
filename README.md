@@ -22,7 +22,7 @@ While this role is more complicated and features several dependancies, it showca
 
 ### Instructions and Usage
 
-Detailed Instructions are found in the [certbot-nginx-vikunja.md](certbot-nginx-vikunja/README-certbot-nginx-vikunja.md) file.
+Detailed Instructions are found in the [README-certbot-nginx-vikunja.md](certbot-nginx-vikunja/README-certbot-nginx-vikunja.md) file.
 
 ## General Tips & Tricks
 
