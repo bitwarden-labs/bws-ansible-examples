@@ -3,7 +3,7 @@
   ansible.builtin.debug:
     msg: "Secret: {{ lookup('bitwarden.secrets.lookup', '30eec674-e931-49a7-a730-b12c00ed20c7') }}"
 
-- name: 2- Display a variable from ansible, overwrite if present in BWS
+- name: 2 - Display a variable from ansible, overwrite if present in BWS
   block:
     - name: Attempt to set ansible var from BWS
       ansible.builtin.set_fact:
