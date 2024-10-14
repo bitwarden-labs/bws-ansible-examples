@@ -1,32 +1,40 @@
 ---
-- name: Obtain server public IPv4
-  ansible.builtin.uri:
-    url: "https://api.ipify.org"
-    return_content: true
-    method: GET
-  register: publicIpResponse
+- name: Manage IP address
+  block:
+  - name: Obtain server public IPv4
+    ansible.builtin.uri:
+      url: "https://api.ipify.org"
+      return_content: true
+      method: GET
+    register: public_ip_response
 
-- name: Store public IP
-  ansible.builtin.set_fact:
-    PUBLIC_IP: "{{ publicIpResponse.content }}"
+  - name: Store public IP
+    ansible.builtin.set_fact:
+      PUBLIC_IP: "{{ public_ip_response.content }}"
 
-- name: Print public IPv4 to console
-  ansible.builtin.debug:
-    var: PUBLIC_IP
+  - name: Print public IPv4 to console
+    ansible.builtin.debug:
+      var: PUBLIC_IP
 
-# https://docs.ansible.com/ansible/latest/collections/community/general/cloudflare_dns_module.html#community-general-cloudflare-dns-module-manage-cloudflare-dns-records
-- name: Create DNS record using public IPv4
-  community.general.cloudflare_dns:
-    zone: "{{ vars[deployment_env]['dns']['domain'] }}"
-    record: "{{ vars[deployment_env]['dns']['subdomain'] }}"
-    type: "A"
-    value: "{{ PUBLIC_IP }}"
-    api_token: "{{ cloudflare_token }}"
-    proxied: false
-    state: present
-    solo: true
-    ttl: 900
-  register: record
+- name: Use Cloudflare to manage DNS record
+  block:
+  - name: Set Cloudflare API token
+    ansible.builtin.set_fact:
+      cloudflare_api_token: "{{ lookup('bitwarden.secrets.lookup', vars[deployment_env]['cloudflare']['cloudflare_api_token']) }}"
+
+  # https://docs.ansible.com/ansible/latest/collections/community/general/cloudflare_dns_module.html#community-general-cloudflare-dns-module-manage-cloudflare-dns-records
+  - name: Create DNS record using public IPv4
+    community.general.cloudflare_dns:
+      zone: "{{ vars[deployment_env]['dns']['domain'] }}"
+      record: "{{ vars[deployment_env]['dns']['subdomain'] }}"
+      type: "A"
+      value: "{{ PUBLIC_IP }}"
+      api_token: "{{ cloudflare_api_token }}"
+      proxied: false
+      state: present
+      solo: true
+      ttl: 900
+    register: record
 
 # - name: Delete vikunja DNS record
 #   when: teardown_mode
