@@ -1,7 +1,7 @@
 example:
   bws-secrets:
-    secret1: 'd0f2a8ff-5ab1-41f7-a4e6-b12c00ecb40c'
-    secret2: '30eec674-e931-49a7-a730-b12c00ed20c7'
+    secret1: '1aad71b3-f49c-4345-9304-b20900c34aad'
+    secret2: 'b431b45d-d1f9-4580-a0a6-b20900c35e18'
 
   ansible-vars:
-    foo: 'bar'
+    example_var_name: 'non secret variable'
