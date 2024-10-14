@@ -100,3 +100,5 @@
       ansible.builtin.command:
         cmd: "/root/certbot/get-certs.sh"
       changed_when: false
+
+...
