@@ -42,11 +42,9 @@
 #   ansible.builtin.debug:
 #     var: smtp.syntax_check
 
-
 # - name: Debug 2nd vikunja var
 #   ansible.builtin.debug:
 #     var: db.syntax_check
-
 
 # - name: Debug vikunja variables
 #   ansible.builtin.debug:
