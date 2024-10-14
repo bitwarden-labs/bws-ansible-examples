@@ -35,13 +35,14 @@
       solo: true
       ttl: 900
     register: record
+    when: teardown_mode | default(false) == false
 
-# - name: Delete vikunja DNS record
-#   when: teardown_mode
-#   community.general.cloudflare_dns:
-#     zone: "{{ dns_domain }}"
-#     record: "{{ dns_subdomain }}"
-#     api_token: "{{ cloudflare_token }}"
-#     state: absent
+- name: Delete vikunja DNS record
+  community.general.cloudflare_dns:
+    zone: "{{ vars[deployment_env]['dns']['domain'] }}"
+    record: "{{ vars[deployment_env]['dns']['subdomain'] }}"
+    api_token: "{{ cloudflare_api_token }}"
+    state: absent
+  when: teardown_mode | default (false)
 
 ...
