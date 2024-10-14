@@ -55,4 +55,17 @@
 #       - smtp.smtp_username
 #       - smtp.smtp_password
 #       - smtp.smtp_from_address
+
+# - name: Debug secret retrieval 1
+#   ansible.builtin.debug:
+#     msg: "{{ vars['example']['bws-secrets']['secret1'] }}"
+
+# - name: Debug secret retrieval 2
+#   ansible.builtin.debug:
+#     msg: "Secret: {{ lookup('bitwarden.secrets.lookup', '1aad71b3-f49c-4345-9304-b20900c34aad') }}"
+
+# - name: Debug secret retrieval 3
+#   ansible.builtin.debug:
+#     msg: "{{ lookup('bitwarden.secrets.lookup', vars['example']['bws-secrets']['secret1']) }}"
+
 ...
