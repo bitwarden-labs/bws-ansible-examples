@@ -4,7 +4,6 @@
   vars_files:
     - ./vars/global.yml
     - ./vars/{{ deployment_env }}.yml
-    - ./cloudflare/vars/cloudflare_vars.yml
   roles:
     - docker
     - cloudflare
