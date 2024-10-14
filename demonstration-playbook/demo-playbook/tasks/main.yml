@@ -1,32 +1,48 @@
 ---
-- name: 1 - Display a secret from BWS
+# - name: 1 - Display a secret from BWS
+#   ansible.builtin.debug:
+#     msg: "Secret: {{ lookup('bitwarden.secrets.lookup', 'bcd19f3b-5610-4041-b4b7-b20900c2493d') }}"
+
+# - name: 2 - Display a variable from ansible, overwrite if present in BWS
+#   block:
+#     - name: Attempt to set ansible var from BWS
+#       ansible.builtin.set_fact:
+#         # Either provide or do not provide a valid SM lookup below
+#         secret: "{{ lookup('bitwarden.secrets.lookup', 'bcd19f3b-5610-4041-b4b7-b20900c2493d', errors='ignore') | default('') }}"
+#         # secret: "{{ lookup('bitwarden.secrets.lookup', '', errors='ignore') | default('') }}"
+#         default: "noreply@atjb.link"
+#       ignore_errors: true # is this also necessary???
+
+#     - name: Set final_secret depending on existance of secret in BWS
+#       ansible.builtin.set_fact:
+#         final_secret: " {{ secret if secret != '' else default }}"
+
+#     - name: Debug to check if secret was retrieved or not
+#       ansible.builtin.debug:
+#         msg: "The secret is {{ final_secret }}"
+
+# - name: 3 - Write a file with a secret injected
+#   block:
+#     - name: Copy a file to a location
+#       ansible.builtin.copy:
+#         src: ./files/example.txt
+#         dest: ~/Desktop/example.txt
+#         owner: "{{ ansible_user_id }}"
+#         mode: "0644"
+
+#     - name: Inject a secret into this file
+#       ansible.builtin.lineinfile:
+#         path: ~/Desktop/example.txt
+#         line: "Secret: {{ lookup('bitwarden.secrets.lookup', 'bcd19f3b-5610-4041-b4b7-b20900c2493d') }}"
+
+- name: debug
   ansible.builtin.debug:
-    msg: "Secret: {{ lookup('bitwarden.secrets.lookup', '30eec674-e931-49a7-a730-b12c00ed20c7') }}"
+    var: vars['example']['bws-secrets']['secret1']
 
-- name: 2 - Display a variable from ansible, overwrite if present in BWS
-  block:
-    - name: Attempt to set ansible var from BWS
-      ansible.builtin.set_fact:
-        secret: "{{ lookup('bitwarden.secrets.lookup', '', errors='ignore') | default('') }}"
-        ignore_errors: true
+- name: debug2
+  ansible.builtin.debug:
+    var: "{{ vars['example']['bws-secrets']['secret2'] }}"
 
-    - name: Display value from BWS, display default if not present
-      ansible.builtin.debug:
-        msg: "Secret: {{ secret }} | default ('user@example.com', true) }}"
-
-- name: 3 - Write a file with a secret injected
-  block:
-    - name: Copy a file to a location
-      ansible.builtin.copy:
-        src: ./files/example.txt
-        dest: ~/Desktop/example.txt
-        owner: "{{ ansible_user_id }}"
-        mode: "0644"
-
-    - name: Inject a secret into this file
-      ansible.builtin.lineinfile:
-        path: ~/Desktop/example.txt
-        line: "Secret: {{ lookup('bitwarden.secrets.lookup', '30eec674-e931-49a7-a730-b12c00ed20c7') }}"
 
 - name: 4 - Write a file with multiple secrets injected
   block:
@@ -56,6 +72,43 @@
       vars:
         first_secret: "{{ dictionary.first_secret }}"
         second_secret: "{{ dictionary.second_secret }}"
-        foo: "{{ vars['example']['ansible-vars']['foo'] }}"
+        foo: "{{ vars['example']['ansible-vars']['example_var_name'] }}"
+
+- name: 5 - Inject secret into environmental variable for single-use
+  block:
+    - name: Set secret
+      ansible.builtin.set_fact:
+        example_var: "{{ lookup('bitwarden.secrets.lookup', 'bcd19f3b-5610-4041-b4b7-b20900c2493d') }}"
+
+    - name: Create a destination file for debug purposes
+      ansible.builtin.copy:
+        src: ./files/env_var.txt
+        dest: ~/Desktop/env_var.txt
+        owner: "{{ ansible_user_id }}"
+        mode: "0644"
+
+    - name: Inject and display secret
+      ansible.builtin.shell: "export example_var={{ example_var }} && echo $example_var >> ~/Desktop/env_var.txt"
+
+- name: 6 - Inject secret into script, which sets persistent environmental variable
+  block:
+    - name: Copy script to host
+      ansible.builtin.copy:
+        dest: ~/Desktop/env_script.sh
+        content: |
+          #! /bin/bash
+          export script_var='This is a secret set by a script'
+          exec "$@"
+
+    - name: Make script executable
+      ansible.builtin.file:
+        path: ~/Desktop/env_script.sh
+        mode: '0755'
+
+    - name: Run the script to set environmental variable
+      ansible.builtin.shell: "~/Desktop/env_script.sh"
+
+# - name: 7 - Inject secret into bashrc to set persistent environmental variable
+
 
 ...
