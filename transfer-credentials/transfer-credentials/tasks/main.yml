@@ -1,0 +1,39 @@
+---
+- name: Show SSH key BWS item
+  when: debug_mode == true
+  ansible.builtin.debug:
+    msg: " {{ lookup('bitwarden.secrets.lookup', '89148db6-7fe6-4995-bd96-b20b012de7f5') }}"
+
+- name: Create ~/.ssh directory
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.ssh"
+    state: directory
+    mode: "0700"
+
+- name: Obtain ssh private key
+  block:
+    - name: Obtain private key
+      ansible.builtin.set_fact:
+        ssh_key: "{{ lookup('bitwarden.secrets.lookup', '89148db6-7fe6-4995-bd96-b20b012de7f5') }}"
+
+    - name: Write SSH private key to file
+      ansible.builtin.copy:
+        content: "{{ ssh_key }}"
+        dest: "{{ ansible_env.HOME }}/.ssh/terraform"
+        mode: "0600"
+        owner: "{{ ansible_user }}"
+
+- name: Obtain ssh public key
+  block:
+    - name: Obtain public key
+      ansible.builtin.set_fact:
+        ssh_key: "{{ lookup('bitwarden.secrets.lookup', '02a10ac6-6403-4677-90f9-b20b0133e7d4') }}"
+
+    - name: Write SSH private key to file
+      ansible.builtin.copy:
+        content: "{{ ssh_key }}"
+        dest: "{{ ansible_env.HOME }}/.ssh/terraform.pub"
+        mode: "0600"
+        owner: "{{ ansible_user }}"
+
+...

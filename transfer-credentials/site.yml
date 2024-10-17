@@ -1,0 +1,8 @@
+---
+- name: Run subtasks
+  hosts: ansible-host
+  roles:
+    - install-bws-cli
+    - transfer-credentials
+
+...

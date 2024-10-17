@@ -1,0 +1,11 @@
+---
+all:
+  children:
+    ansible-host:
+      hosts:
+        ansible-host:
+    local:
+      hosts:
+        localhost:
+          ansible_connection: local
+...

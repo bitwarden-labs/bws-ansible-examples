@@ -1,0 +1,13 @@
+---
+bws:
+  access_token: '25328f50-3b68-4862-b1cb-b20b009e1838'
+
+ansible:
+  ansible_user: 'adam'
+
+digitalocean:
+  ssh_key: 'c3b294f9-fd33-4e76-b2d5-b20b00b45910'
+  ssh_pubkey: '0d7b78c7-8de7-4aa1-8ff5-b20b00b4882a'
+
+debug_mode: false
+...
