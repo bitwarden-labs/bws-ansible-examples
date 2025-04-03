@@ -5,6 +5,7 @@
     name:
       - git
       - python3-venv
+      - unzip
     state: present
     update_cache: true
 
@@ -54,7 +55,6 @@
   when: debug_mode == true
   block:
     - name: Check machine token is available
-      become: true
       ansible.builtin.shell: "/bin/bash -c 'source /etc/environment && echo $BWS_ACCESS_TOKEN'"
       register: remote_machine_token
     - name: Display machine_token
