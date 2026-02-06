@@ -1,19 +1,19 @@
 ---
 - name: 1 - Display a secret from BWS
   ansible.builtin.debug:
-    msg: "Secret: {{ lookup('bitwarden.secrets.lookup', 'bcd19f3b-5610-4041-b4b7-b20900c2493d') }}"
+    msg: "Secret: {{ lookup('bitwarden.secrets.lookup', '64e14791-0177-45a1-b334-b3e9009fc664') }}"
 
 - name: 2 - Display a variable from ansible, overwrite if present in BWS
   block:
     - name: Attempt to set ansible var from BWS
       ansible.builtin.set_fact:
         # Either provide or do not provide a valid SM lookup below
-        secret: "{{ lookup('bitwarden.secrets.lookup', 'bcd19f3b-5610-4041-b4b7-b20900c2493d', errors='ignore') | default('') }}"
+        secret: "{{ lookup('bitwarden.secrets.lookup', '64e14791-0177-45a1-b334-b3e9009fc664', errors='ignore') | default('') }}"
         # secret: "{{ lookup('bitwarden.secrets.lookup', '', errors='ignore') | default('') }}"
         default: "noreply@atjb.link"
       ignore_errors: true # is this also necessary???
 
-    - name: Set final_secret depending on existance of secret in BWS
+    - name: Set final_secret depending on existence of secret in BWS
       ansible.builtin.set_fact:
         final_secret: " {{ secret if secret != '' else default }}"
 
@@ -33,7 +33,7 @@
     - name: Inject a secret into this file
       ansible.builtin.lineinfile:
         path: ~/Desktop/example.txt
-        line: "Secret: {{ lookup('bitwarden.secrets.lookup', 'bcd19f3b-5610-4041-b4b7-b20900c2493d') }}"
+        line: "Secret: {{ lookup('bitwarden.secrets.lookup', '64e14791-0177-45a1-b334-b3e9009fc664') }}"
 
 - name: 4 - Write a file with multiple secrets injected
   block:

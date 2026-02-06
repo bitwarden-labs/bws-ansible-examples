@@ -1,7 +1,24 @@
+# Bitwarden Server URL Configuration
+# This URL will be applied to all secret lookups via the BWS_SERVER_URL env var
+# Choose ONLY ONE of the following two approaches:
+
+# OPTION 1 (Recommended for most users): Set a single base URL for cloud or standard self-hosted Bitwarden installations
+# Set bitwaden_server_url to your Bitwarden server:
+# - https://vault.bitwarden.com (US Cloud)
+# - https://vault.bitwarden.eu (EU Cloud)
+# - https://subdomain.domain.com (Self-hosted)
+bitwarden_server_url: 'https://vault.bitwarden.com'
+
+# # OPTION 2 (Advanced): Use separate API and Identity URLs
+# # ONLY needed for custom/non-standard server configurations (e.g. when using custom K8s ingress or path-re-writing reverse proxies)
+# # If using this option, comment out bitwarden_server_url above and uncomment the separate URL variables below:
+# bitwarden_api_url: 'https://your-domain.com/api'
+# bitwarden_identity_url: 'https://your-domain.com/identity'
+
 example:
   bws-secrets:
-    secret1: '1aad71b3-f49c-4345-9304-b20900c34aad'
-    secret2: 'b431b45d-d1f9-4580-a0a6-b20900c35e18'
+    secret1: '6589eeee-06c9-4deb-898a-b3e9009f9c59'
+    secret2: 'fb6a9e92-bd58-40d8-b199-b3e9009fb287'
 
   ansible-vars:
     example_var_name: 'non secret variable'

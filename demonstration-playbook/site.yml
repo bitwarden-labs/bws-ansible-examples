@@ -4,6 +4,20 @@
   gather_facts: true
   vars_files:
     - ./demo-playbook/vars/demo-vars.yml
+
+  vars:
+    bws_access_token: "{{ lookup(env, 'BWS_ACCESS_TOKEN') }}"
+
+  environment:
+    # Sets Bitwarden server URL for all BWS lookups in this playbook, pulls from ./demo-playbook/vars/demo-vars.yml
+    BWS_SERVER_URL: "{{ bitwarden_server_url }}"
+
+    # # Advanced option: For advanced custom server configurations ONLY (e.g. when using custom K8s ingress or path-re-writing reverse proxies), the identity URL can be defined separately from the API URL.
+    # # N.B this is not necessary for most users.
+    # # Pulls from ./demo-playbook/vars/demo-vars.yml
+    # BWS_API_URL: "{{ bitwarden_api_url }}"
+    # BWS_IDENTITY_URL: "{{ bitwarden_identity_url }}"
+
   roles:
     - demo-playbook
 
