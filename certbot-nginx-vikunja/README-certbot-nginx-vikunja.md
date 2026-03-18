@@ -11,7 +11,7 @@ In addition to being directly useful to existing Vikunja users, it is hoped that
   - git clone <https://github.com/bitwarden-labs/bws-ansible-examples.git>
   - cd bws-ansible-examples
   - python3 -m venv ./venv (creates a Python virtual environment to work in)
-  - source ./venv/bin/activate (actives the virtual environment.  Use 'deactivate' to return to your normal namespace)
+  - source ./venv/bin/activate (activates the virtual environment.  Use 'deactivate' to return to your normal namespace)
   - python3 -m pip install ansible bitwarden-sdk
   - ansible-galaxy collection install community.docker bitwarden.secrets
   - export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES  (for macOS only)
