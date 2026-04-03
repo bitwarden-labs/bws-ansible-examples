@@ -8,3 +8,7 @@ ansible.cfg
 sdks/
 create-ansible-user/
 venv/
+
+# Python environment
+Pipfile
+Pipfile.lock
