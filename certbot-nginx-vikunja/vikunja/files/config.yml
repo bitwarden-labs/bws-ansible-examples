@@ -29,7 +29,7 @@ redis:
   enabled: false
 
 cors:
-  enabled: false
+  enable: false
 
 mailer:
   enabled: true
