@@ -1,11 +1,15 @@
 services:
     vikunja:
         image: vikunja/vikunja
+        user: "1000"
+        environment:
+            XDG_CACHE_HOME: /tmp/.cache
         ports:
             - 3456:3456
         volumes:
             - ./files:/app/vikunja/files
             - ./config:/etc/vikunja
+            - /tmp:/tmp
         depends_on:
             db:
                 condition: service_healthy
