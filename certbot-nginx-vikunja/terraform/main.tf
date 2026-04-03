@@ -1,7 +1,7 @@
 resource "digitalocean_droplet" "exampleserver" {
   count      = 2
   name       = "example-${count.index}"
-  image      = "ubuntu-20-04-x64"
+  image      = "ubuntu-24-04-x64"
   region     = "nyc3"
   size       = "s-1vcpu-1gb"
   ssh_keys   = [data.digitalocean_ssh_key.terraform.id]
