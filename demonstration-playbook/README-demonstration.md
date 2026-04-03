@@ -1,6 +1,6 @@
 # Introduction
 
-This role uses a single Ansible to demonstrate ways to dynamically retrieve secrets from Bitwarden Secrets Manager.  The purpose of the role is to give users a kick-start by providing syntax examples, as well as a few ideas as to how secrets can be stored and manipulated.
+This role uses a single Ansible playbook to demonstrate ways to dynamically retrieve secrets from Bitwarden Secrets Manager.  The purpose of the role is to give users a kick-start by providing syntax examples, as well as a few ideas as to how secrets can be stored and manipulated.
 
 ## Usage Instructions
 
