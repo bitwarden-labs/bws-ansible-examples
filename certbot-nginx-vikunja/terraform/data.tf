@@ -1,5 +1,5 @@
 data "digitalocean_ssh_key" "terraform" {
-  name = "terraform"
+  name = "~/.ssh/digital-ocean"
 }
 
 data "digitalocean_project" "bitwarden" {
