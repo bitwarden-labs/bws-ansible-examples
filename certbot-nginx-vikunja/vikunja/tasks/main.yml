@@ -9,6 +9,14 @@
         group: root
         mode: "0755"
 
+    - name: Create files directory owned by container user
+      ansible.builtin.file:
+        path: /opt/vikunja/files
+        state: directory
+        owner: "1000"
+        group: "1000"
+        mode: "0755"
+
     - name: Copy bootstrap files
       ansible.builtin.copy:
         src: "{{ item.src }}"
@@ -73,6 +81,12 @@
       loop:
         - { key: 'root_db_password', secret_id: "{{ vars[deployment_env]['vikunja']['root_db_password'] }}" }
         - { key: 'vikunja_db_password', secret_id: "{{ vars[deployment_env]['vikunja']['vikunja_db_password'] }}" }
+
+    - name: Pin Vikunja image version in docker-compose.yml
+      ansible.builtin.lineinfile:
+        path: /opt/vikunja/docker-compose.yml
+        regexp: "^        image: vikunja/vikunja"
+        line: "        image: vikunja/vikunja:{{ vars[deployment_env]['vikunja']['version'] }}"
 
     - name: Inject secrets into docker-compose.yml
       ansible.builtin.lineinfile:
