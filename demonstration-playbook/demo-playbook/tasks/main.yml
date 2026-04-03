@@ -15,7 +15,7 @@
 
     - name: Set final_secret depending on existence of secret in BWS
       ansible.builtin.set_fact:
-        final_secret: " {{ secret if secret != '' else default }}"
+        final_secret: "{{ secret if secret else default }}"
 
     - name: Debug to check if secret was retrieved or not
       ansible.builtin.debug:
